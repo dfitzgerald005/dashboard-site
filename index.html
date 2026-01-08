@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Dashboard</title>
+    <title>RRG Healthcare Revenue Dashboard</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.js"></script>
     <style>
         * {
@@ -14,13 +14,13 @@
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             padding: 20px;
         }
 
         .dashboard {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
         }
 
@@ -28,12 +28,12 @@
             background: white;
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             margin-bottom: 30px;
         }
 
         .header h1 {
-            color: #667eea;
+            color: #1e3c72;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
@@ -45,7 +45,7 @@
 
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -54,14 +54,13 @@
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
         .stat-card .icon {
@@ -75,10 +74,10 @@
             margin-bottom: 15px;
         }
 
-        .stat-card.blue .icon { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+        .stat-card.blue .icon { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); }
         .stat-card.green .icon { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .stat-card.orange .icon { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
-        .stat-card.purple .icon { background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); }
+        .stat-card.orange .icon { background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%); }
+        .stat-card.purple .icon { background: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%); }
 
         .stat-card h3 {
             color: #888;
@@ -89,7 +88,7 @@
         }
 
         .stat-card .value {
-            font-size: 2.5em;
+            font-size: 2.2em;
             font-weight: bold;
             color: #333;
             margin-bottom: 10px;
@@ -101,12 +100,16 @@
         }
 
         .stat-card .change.negative {
-            color: #f5576c;
+            color: #ee0979;
+        }
+
+        .stat-card .change.neutral {
+            color: #666;
         }
 
         .charts-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -115,7 +118,11 @@
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .chart-card.full-width {
+            grid-column: 1 / -1;
         }
 
         .chart-card h2 {
@@ -126,14 +133,18 @@
 
         .chart-container {
             position: relative;
-            height: 300px;
+            height: 350px;
+        }
+
+        .chart-container.tall {
+            height: 500px;
         }
 
         .data-table {
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             overflow-x: auto;
         }
 
@@ -156,7 +167,7 @@
 
         th {
             background: #f8f9fa;
-            color: #667eea;
+            color: #1e3c72;
             font-weight: 600;
             text-transform: uppercase;
             font-size: 0.85em;
@@ -167,26 +178,9 @@
             background: #f8f9fa;
         }
 
-        .status {
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 600;
-        }
-
-        .status.active {
-            background: #d4f8e8;
-            color: #11998e;
-        }
-
-        .status.pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .status.completed {
-            background: #d1ecf1;
-            color: #0c5460;
+        .rank {
+            font-weight: bold;
+            color: #1e3c72;
         }
 
         @media (max-width: 768px) {
@@ -207,84 +201,84 @@
 <body>
     <div class="dashboard">
         <div class="header">
-            <h1>Analytics Dashboard</h1>
-            <p>Real-time insights and performance metrics</p>
+            <h1>RRG Healthcare Revenue Dashboard</h1>
+            <p>Substance Abuse & Mental Health PHP/IOP Services - YTD 2025</p>
         </div>
 
         <div class="stats-grid">
             <div class="stat-card blue">
-                <div class="icon">📊</div>
-                <h3>Total Revenue</h3>
-                <div class="value">$100,000,000</div>
-                <div class="change">↑ 12.5% from last month</div>
+                <div class="icon">💰</div>
+                <h3>Total Collected (YTD)</h3>
+                <div class="value">$19.7M</div>
+                <div class="change neutral">63,413 paid claims</div>
             </div>
 
             <div class="stat-card green">
-                <div class="icon">👥</div>
-                <h3>Active Users</h3>
-                <div class="value">8,459</div>
-                <div class="change">↑ 8.2% from last month</div>
-            </div>
-
-            <div class="stat-card orange">
-                <div class="icon">🛒</div>
-                <h3>Orders</h3>
-                <div class="value">2,341</div>
-                <div class="change negative">↓ 3.1% from last month</div>
+                <div class="icon">📊</div>
+                <h3>Forecasted Revenue</h3>
+                <div class="value">$24.6M</div>
+                <div class="change">$4.9M outstanding forecast</div>
             </div>
 
             <div class="stat-card purple">
-                <div class="icon">⭐</div>
-                <h3>Conversion Rate</h3>
-                <div class="value">3.24%</div>
-                <div class="change">↑ 0.8% from last month</div>
+                <div class="icon">📈</div>
+                <h3>Collection Rate</h3>
+                <div class="value">20.83%</div>
+                <div class="change neutral">Of total billed ($94.5M)</div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="icon">🏥</div>
+                <h3>December Forecast</h3>
+                <div class="value">$1.6M</div>
+                <div class="change">$1.4M expected payments</div>
             </div>
         </div>
 
         <div class="charts-grid">
             <div class="chart-card">
-                <h2>Revenue Overview</h2>
+                <h2>PHP vs IOP Revenue</h2>
                 <div class="chart-container">
-                    <canvas id="revenueChart"></canvas>
+                    <canvas id="serviceTypeChart"></canvas>
                 </div>
             </div>
 
             <div class="chart-card">
-                <h2>User Growth</h2>
+                <h2>December 2025 Revenue Status</h2>
                 <div class="chart-container">
-                    <canvas id="userChart"></canvas>
+                    <canvas id="decemberChart"></canvas>
                 </div>
             </div>
 
-            <div class="chart-card">
-                <h2>Traffic Sources</h2>
-                <div class="chart-container">
-                    <canvas id="trafficChart"></canvas>
+            <div class="chart-card full-width">
+                <h2>Top 15 Payers by Total Revenue (YTD 2025)</h2>
+                <div class="chart-container tall">
+                    <canvas id="payerRevenueChart"></canvas>
                 </div>
             </div>
 
-            <div class="chart-card">
-                <h2>Product Performance</h2>
+            <div class="chart-card full-width">
+                <h2>Top 10 Payers by Average Reimbursement Per Claim</h2>
                 <div class="chart-container">
-                    <canvas id="productChart"></canvas>
+                    <canvas id="avgReimbursementChart"></canvas>
                 </div>
             </div>
         </div>
 
         <div class="data-table">
-            <h2>Recent Transactions</h2>
+            <h2>Top 20 Payers by Total Revenue</h2>
             <table>
                 <thead>
                     <tr>
-                        <th>Transaction ID</th>
-                        <th>Customer</th>
-                        <th>Product</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Date</th>
+                        <th>Rank</th>
+                        <th>Payer Name</th>
+                        <th>Total Revenue</th>
+                        <th>Paid Claims</th>
+                        <th>Avg per Claim</th>
+                        <th>% of Total</th>
                     </tr>
                 </thead>
-                <tbody id="transactionTable">
+                <tbody id="payerTable">
                     <!-- Populated by JavaScript -->
                 </tbody>
             </table>
@@ -292,19 +286,85 @@
     </div>
 
     <script>
-        // Revenue Chart
-        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
-        new Chart(revenueCtx, {
-            type: 'line',
+        // Data from analysis
+        const payerData = [
+            {payer: "HARVARD PILGRIM HEALTH CARE", total: 2052432.44, claims: 1828, percent: 10.43},
+            {payer: "MASSACHUSETTS BLUE CROSS BLUE SHIELD", total: 1603404.30, claims: 1584, percent: 8.15},
+            {payer: "AETNA", total: 1296452.83, claims: 1009, percent: 6.59},
+            {payer: "BCBS MA - MA", total: 1113396.25, claims: 2037, percent: 5.66},
+            {payer: "AETNA HEALTH PLANS", total: 900700.46, claims: 551, percent: 4.58},
+            {payer: "UNITED HEALTHCARE", total: 869554.53, claims: 1877, percent: 4.42},
+            {payer: "BLUE CROSS - MASSACHUSETTS", total: 684535.50, claims: 1285, percent: 3.48},
+            {payer: "ALLWAYS HEALTH PARTNERS", total: 556853.01, claims: 893, percent: 2.83},
+            {payer: "BLUE CROSS - ILLINOIS", total: 462169.46, claims: 407, percent: 2.35},
+            {payer: "CIGNA", total: 449533.72, claims: 1215, percent: 2.28},
+            {payer: "CIGNA HEALTH PLANS", total: 437022.08, claims: 1029, percent: 2.22},
+            {payer: "MASS GEN BRIGHAM - OPTUM", total: 426105.11, claims: 200, percent: 2.17},
+            {payer: "HEALTH PLANS INC.", total: 424894.91, claims: 704, percent: 2.16},
+            {payer: "BLUE CROSS - RHODE ISLAND", total: 343940.35, claims: 364, percent: 1.75},
+            {payer: "EMPIRE BCBS NY-MASSACHUSETTS", total: 318622.40, claims: 156, percent: 1.62},
+            {payer: "BLUE CROSS - NEW JERSEY", total: 315179.09, claims: 165, percent: 1.60},
+            {payer: "WELLMARK BCBS - MA", total: 298686.62, claims: 110, percent: 1.52},
+            {payer: "HMC HEALTHWORKS", total: 295227.25, claims: 599, percent: 1.50},
+            {payer: "BCBS HORIZON OF NEW JERSEY-MA", total: 293836.31, claims: 182, percent: 1.49},
+            {payer: "BCBS RHODE ISLAND-MASS.", total: 291283.74, claims: 494, percent: 1.48}
+        ];
+
+        const topAvgPayers = [
+            {payer: "MERITAIN HEALTH", avg: 10190.93, claims: 4},
+            {payer: "CAREFIRST BCBS-MA", avg: 3368.62, claims: 38},
+            {payer: "CARELON BEHAVIORAL", avg: 3000.00, claims: 5},
+            {payer: "CARELON (BEACON)", avg: 2999.62, claims: 96},
+            {payer: "BCBS TEXAS - MA", avg: 2935.52, claims: 45},
+            {payer: "BCBS ID - MA", avg: 2753.81, claims: 26},
+            {payer: "WELLMARK BCBS - MA", avg: 2715.33, claims: 110},
+            {payer: "BLUE CROSS - FLORIDA", avg: 2509.26, claims: 46},
+            {payer: "BLUE CROSS - IOWA", avg: 2432.72, claims: 46},
+            {payer: "EXCELLUS BCBS - MA", avg: 2401.45, claims: 56}
+        ];
+
+        // Service Type Chart
+        const serviceCtx = document.getElementById('serviceTypeChart').getContext('2d');
+        new Chart(serviceCtx, {
+            type: 'doughnut',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                labels: ['PHP (Partial Hospitalization)', 'IOP (Intensive Outpatient)', 'Other Services'],
                 datasets: [{
-                    label: 'Revenue',
-                    data: [65000, 75000, 82000, 91000, 105000, 115000, 124592],
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
-                    tension: 0.4,
-                    fill: true
+                    data: [7525893.30, 5584300.31, 6567254.72],
+                    backgroundColor: ['#1e3c72', '#11998e', '#7f00ff']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const value = context.parsed;
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percent = ((value / total) * 100).toFixed(1);
+                                return context.label + ': $' + value.toLocaleString('en-US', {maximumFractionDigits: 0}) + ' (' + percent + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // December Chart
+        const decCtx = document.getElementById('decemberChart').getContext('2d');
+        new Chart(decCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Billed', 'Collected', 'Forecasted', 'Expected'],
+                datasets: [{
+                    label: 'December 2025',
+                    data: [7625450, 253564.45, 1648939.67, 1395375.22],
+                    backgroundColor: ['#7f00ff', '#11998e', '#1e3c72', '#ee0979']
                 }]
             },
             options: {
@@ -320,7 +380,7 @@
                         beginAtZero: true,
                         ticks: {
                             callback: function(value) {
-                                return '$' + value.toLocaleString();
+                                return '$' + (value / 1000000).toFixed(1) + 'M';
                             }
                         }
                     }
@@ -328,16 +388,57 @@
             }
         });
 
-        // User Growth Chart
-        const userCtx = document.getElementById('userChart').getContext('2d');
-        new Chart(userCtx, {
+        // Top Payers by Revenue Chart
+        const payerRevCtx = document.getElementById('payerRevenueChart').getContext('2d');
+        new Chart(payerRevCtx, {
             type: 'bar',
             data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+                labels: payerData.slice(0, 15).map(p => p.payer.length > 30 ? p.payer.substring(0, 30) + '...' : p.payer),
                 datasets: [{
-                    label: 'New Users',
-                    data: [1200, 1500, 1800, 2100, 2400, 2800, 3200],
-                    backgroundColor: 'rgba(17, 153, 142, 0.8)',
+                    label: 'Total Revenue',
+                    data: payerData.slice(0, 15).map(p => p.total),
+                    backgroundColor: '#1e3c72'
+                }]
+            },
+            options: {
+                indexAxis: 'y',
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.x.toLocaleString('en-US', {maximumFractionDigits: 0});
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + (value / 1000000).toFixed(1) + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Average Reimbursement Chart
+        const avgCtx = document.getElementById('avgReimbursementChart').getContext('2d');
+        new Chart(avgCtx, {
+            type: 'bar',
+            data: {
+                labels: topAvgPayers.map(p => p.payer),
+                datasets: [{
+                    label: 'Avg Reimbursement per Claim',
+                    data: topAvgPayers.map(p => p.avg),
+                    backgroundColor: '#11998e'
                 }]
             },
             options: {
@@ -346,103 +447,42 @@
                 plugins: {
                     legend: {
                         display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return '$' + context.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 2}) + ' per claim';
+                            }
+                        }
                     }
                 },
                 scales: {
                     y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Traffic Sources Chart
-        const trafficCtx = document.getElementById('trafficChart').getContext('2d');
-        new Chart(trafficCtx, {
-            type: 'doughnut',
-            data: {
-                labels: ['Organic Search', 'Direct', 'Social Media', 'Referral', 'Email'],
-                datasets: [{
-                    data: [42, 25, 18, 10, 5],
-                    backgroundColor: [
-                        '#667eea',
-                        '#11998e',
-                        '#f093fb',
-                        '#4facfe',
-                        '#ffa726'
-                    ]
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
-
-        // Product Performance Chart
-        const productCtx = document.getElementById('productChart').getContext('2d');
-        new Chart(productCtx, {
-            type: 'radar',
-            data: {
-                labels: ['Quality', 'Price', 'Design', 'Support', 'Features'],
-                datasets: [{
-                    label: 'Product A',
-                    data: [85, 75, 90, 80, 88],
-                    borderColor: '#667eea',
-                    backgroundColor: 'rgba(102, 126, 234, 0.2)',
-                }, {
-                    label: 'Product B',
-                    data: [78, 88, 82, 85, 75],
-                    borderColor: '#11998e',
-                    backgroundColor: 'rgba(17, 153, 142, 0.2)',
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                scales: {
-                    r: {
                         beginAtZero: true,
-                        max: 100
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + value.toLocaleString();
+                            }
+                        }
                     }
                 }
             }
         });
 
-        // Populate transaction table
-        const transactions = [
-            { id: 'TXN-001', customer: 'John Smith', product: 'Premium Plan', amount: '$299', status: 'completed', date: '2026-01-08' },
-            { id: 'TXN-002', customer: 'Sarah Johnson', product: 'Basic Plan', amount: '$99', status: 'completed', date: '2026-01-08' },
-            { id: 'TXN-003', customer: 'Mike Davis', product: 'Enterprise', amount: '$999', status: 'active', date: '2026-01-07' },
-            { id: 'TXN-004', customer: 'Emily Brown', product: 'Pro Plan', amount: '$199', status: 'pending', date: '2026-01-07' },
-            { id: 'TXN-005', customer: 'David Wilson', product: 'Premium Plan', amount: '$299', status: 'completed', date: '2026-01-06' },
-            { id: 'TXN-006', customer: 'Lisa Anderson', product: 'Basic Plan', amount: '$99', status: 'completed', date: '2026-01-06' },
-            { id: 'TXN-007', customer: 'Tom Martinez', product: 'Pro Plan', amount: '$199', status: 'active', date: '2026-01-05' },
-        ];
-
-        const tableBody = document.getElementById('transactionTable');
-        transactions.forEach(txn => {
+        // Populate payer table
+        const tableBody = document.getElementById('payerTable');
+        payerData.forEach((payer, index) => {
             const row = document.createElement('tr');
+            const avgPerClaim = (payer.total / payer.claims).toFixed(2);
             row.innerHTML = `
-                <td>${txn.id}</td>
-                <td>${txn.customer}</td>
-                <td>${txn.product}</td>
-                <td><strong>${txn.amount}</strong></td>
-                <td><span class="status ${txn.status}">${txn.status}</span></td>
-                <td>${txn.date}</td>
+                <td class="rank">#${index + 1}</td>
+                <td><strong>${payer.payer}</strong></td>
+                <td>$${payer.total.toLocaleString('en-US', {maximumFractionDigits: 2})}</td>
+                <td>${payer.claims.toLocaleString()}</td>
+                <td>$${parseFloat(avgPerClaim).toLocaleString('en-US', {maximumFractionDigits: 2})}</td>
+                <td>${payer.percent}%</td>
             `;
             tableBody.appendChild(row);
-        });
-
-        // Add interactivity to stat cards
-        document.querySelectorAll('.stat-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const value = this.querySelector('.value');
-                value.style.transform = 'scale(1.1)';
-                setTimeout(() => {
-                    value.style.transform = 'scale(1)';
-                }, 200);
-            });
         });
     </script>
 </body>

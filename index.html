@@ -251,6 +251,13 @@
             </div>
 
             <div class="chart-card full-width">
+                <h2>Revenue by Location - Month over Month (2025)</h2>
+                <div class="chart-container tall">
+                    <canvas id="locationMonthlyChart"></canvas>
+                </div>
+            </div>
+
+            <div class="chart-card full-width">
                 <h2>Top 15 Payers by Total Revenue (YTD 2025)</h2>
                 <div class="chart-container tall">
                     <canvas id="payerRevenueChart"></canvas>
@@ -422,6 +429,90 @@
                         ticks: {
                             callback: function(value) {
                                 return '$' + (value / 1000000).toFixed(1) + 'M';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        // Location Monthly Revenue Chart
+        const locationData = [
+            {month: "Jan", MCA: 88909.40, RRBH: 152243.34, RRTC: 233575.65},
+            {month: "Feb", MCA: 237889.45, RRBH: 335562.21, RRTC: 756800.98},
+            {month: "Mar", MCA: 258517.09, RRBH: 532093.84, RRTC: 725180.76},
+            {month: "Apr", MCA: 304328.71, RRBH: 369618.32, RRTC: 1109684.18},
+            {month: "May", MCA: 302746.81, RRBH: 334400.01, RRTC: 1073081.47},
+            {month: "Jun", MCA: 184074.33, RRBH: 453246.21, RRTC: 1377638.29},
+            {month: "Jul", MCA: 186826.18, RRBH: 867028.55, RRTC: 1026883.89},
+            {month: "Aug", MCA: 334036.89, RRBH: 703728.71, RRTC: 849221.21},
+            {month: "Sep", MCA: 316631.51, RRBH: 596984.49, RRTC: 693147.14},
+            {month: "Oct", MCA: 279742.87, RRBH: 337538.24, RRTC: 1031037.47},
+            {month: "Nov", MCA: 323014.51, RRBH: 254688.44, RRTC: 711610.07},
+            {month: "Dec", MCA: 689214.79, RRBH: 632406.47, RRTC: 850312.00}
+        ];
+
+        const locationCtx = document.getElementById('locationMonthlyChart').getContext('2d');
+        new Chart(locationCtx, {
+            type: 'line',
+            data: {
+                labels: locationData.map(d => d.month),
+                datasets: [
+                    {
+                        label: 'RRTC (Substance Abuse)',
+                        data: locationData.map(d => d.RRTC),
+                        borderColor: '#1e3c72',
+                        backgroundColor: 'rgba(30, 60, 114, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'RRBH (Mental Health)',
+                        data: locationData.map(d => d.RRBH),
+                        borderColor: '#11998e',
+                        backgroundColor: 'rgba(17, 153, 142, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'MCA (In-Network)',
+                        data: locationData.map(d => d.MCA),
+                        borderColor: '#ee0979',
+                        backgroundColor: 'rgba(238, 9, 121, 0.1)',
+                        tension: 0.4,
+                        fill: true,
+                        borderWidth: 3
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.dataset.label + ': $' + context.parsed.y.toLocaleString('en-US', {maximumFractionDigits: 0});
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        stacked: false,
+                        ticks: {
+                            callback: function(value) {
+                                return '$' + (value / 1000).toFixed(0) + 'K';
                             }
                         }
                     }

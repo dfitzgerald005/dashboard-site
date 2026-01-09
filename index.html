@@ -205,6 +205,56 @@
             <p>Substance Abuse & Mental Health PHP/IOP Services - YTD 2025</p>
         </div>
 
+        <!-- Consolidated Revenue Report -->
+        <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); margin-bottom: 30px;">
+            <h2 style="color: #1e3c72; font-size: 1.8em; margin-bottom: 25px; border-bottom: 3px solid #1e3c72; padding-bottom: 15px;">Consolidated Revenue Report - Month over Month</h2>
+
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                    <thead>
+                        <tr style="background: #1e3c72; color: white;">
+                            <th style="padding: 15px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Month</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Paid Revenue</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Unpaid - Harvard Pilgrim</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Unpaid - Other</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px; background: #2a5298;">Total Revenue</th>
+                        </tr>
+                    </thead>
+                    <tbody id="consolidatedTable">
+                        <!-- Populated by JavaScript -->
+                    </tbody>
+                    <tfoot>
+                        <tr style="background: #f8f9fa; font-weight: bold; border-top: 3px solid #1e3c72;">
+                            <td style="padding: 20px; font-size: 1.1em;">YTD 2025 TOTAL</td>
+                            <td style="padding: 20px; text-align: right; color: #11998e; font-size: 1.1em;" id="totalPaid">-</td>
+                            <td style="padding: 20px; text-align: right; color: #ee0979; font-size: 1.1em;" id="totalHarvard">-</td>
+                            <td style="padding: 20px; text-align: right; color: #7f00ff; font-size: 1.1em;" id="totalOther">-</td>
+                            <td style="padding: 20px; text-align: right; background: #1e3c72; color: white; font-size: 1.2em;" id="grandTotal">-</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <!-- Summary Cards -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-top: 30px;">
+                <div style="padding: 20px; background: #f0f8f7; border-radius: 12px; border-left: 5px solid #11998e; text-align: center;">
+                    <div style="color: #666; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">✓ Paid Revenue</div>
+                    <div style="font-size: 1.8em; font-weight: bold; color: #11998e;">$19.5M</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">72.0%</div>
+                </div>
+                <div style="padding: 20px; background: #fff5f5; border-radius: 12px; border-left: 5px solid #ee0979; text-align: center;">
+                    <div style="color: #666; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">⚠️ Harvard Pilgrim</div>
+                    <div style="font-size: 1.8em; font-weight: bold; color: #ee0979;">$4.6M</div>
+                    <div style="color: #ee0979; font-size: 0.85em; margin-top: 5px; font-weight: 600;">16.9% - HIGH RISK</div>
+                </div>
+                <div style="padding: 20px; background: #f8f9ff; border-radius: 12px; border-left: 5px solid #7f00ff; text-align: center;">
+                    <div style="color: #666; font-size: 0.8em; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">○ Other Unpaid</div>
+                    <div style="font-size: 1.8em; font-weight: bold; color: #7f00ff;">$3.0M</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">11.1%</div>
+                </div>
+            </div>
+        </div>
+
         <div class="stats-grid">
             <div class="stat-card blue">
                 <div class="icon">💰</div>
@@ -301,6 +351,53 @@
     </div>
 
     <script>
+        // Monthly Consolidated Revenue Data
+        const monthlyRevenue = [
+            {month: "January", paid: 474728.39, harvard: 10713.68, other: 226709.44, total: 712151.50},
+            {month: "February", paid: 1330252.64, harvard: 3967.05, other: 102828.70, total: 1437048.39},
+            {month: "March", paid: 1515791.69, harvard: 22465.88, other: 141320.31, total: 1679577.87},
+            {month: "April", paid: 1783631.21, harvard: 34293.30, other: 142545.00, total: 1960469.51},
+            {month: "May", paid: 1710228.29, harvard: 113162.25, other: 120012.63, total: 1943403.17},
+            {month: "June", paid: 2014958.83, harvard: 142193.48, other: 160944.50, total: 2318096.80},
+            {month: "July", paid: 2080738.62, harvard: 124061.93, other: 140945.08, total: 2345745.62},
+            {month: "August", paid: 1886986.81, harvard: 750639.32, other: 98063.58, total: 2735689.71},
+            {month: "September", paid: 1606763.14, harvard: 977671.34, other: 151631.85, total: 2736066.32},
+            {month: "October", paid: 1648318.58, harvard: 1047660.99, other: 324047.67, total: 3020027.24},
+            {month: "November", paid: 1289313.02, harvard: 831859.30, other: 444188.54, total: 2565360.86},
+            {month: "December", paid: 2171933.26, harvard: 520458.71, other: 976391.80, total: 3668783.77}
+        ];
+
+        // Populate consolidated table
+        const consolidatedTableBody = document.getElementById('consolidatedTable');
+        let totalPaidSum = 0;
+        let totalHarvardSum = 0;
+        let totalOtherSum = 0;
+        let grandTotalSum = 0;
+
+        monthlyRevenue.forEach((data, index) => {
+            totalPaidSum += data.paid;
+            totalHarvardSum += data.harvard;
+            totalOtherSum += data.other;
+            grandTotalSum += data.total;
+
+            const row = document.createElement('tr');
+            row.style.background = index % 2 === 0 ? '#ffffff' : '#f8f9fa';
+            row.innerHTML = `
+                <td style="padding: 15px; font-weight: 600; color: #1e3c72;">${data.month}</td>
+                <td style="padding: 15px; text-align: right; color: #11998e;">$${data.paid.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                <td style="padding: 15px; text-align: right; color: #ee0979; font-weight: ${data.harvard > 500000 ? 'bold' : 'normal'};">$${data.harvard.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                <td style="padding: 15px; text-align: right; color: #7f00ff;">$${data.other.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+                <td style="padding: 15px; text-align: right; font-weight: bold; background: #f0f4ff;">$${data.total.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2})}</td>
+            `;
+            consolidatedTableBody.appendChild(row);
+        });
+
+        // Update totals
+        document.getElementById('totalPaid').textContent = '$' + totalPaidSum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('totalHarvard').textContent = '$' + totalHarvardSum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('totalOther').textContent = '$' + totalOtherSum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('grandTotal').textContent = '$' + grandTotalSum.toLocaleString('en-US', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+
         // Data from analysis
         const payerData = [
             {payer: "HARVARD PILGRIM HEALTH CARE", total: 2052432.44, claims: 1828, percent: 10.43},

@@ -331,11 +331,86 @@
             </div>
         </div>
 
-        <div class="stat-card orange" style="grid-column: 1 / -1; background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%); border-left: 5px solid #ee0979;">
-            <h3 style="color: #ee0979; font-size: 1.1em; margin-bottom: 15px;">⚠️ CONCENTRATION RISK ALERT</h3>
-            <div style="color: #333; font-size: 1em; line-height: 1.6;">
-                <strong>Harvard Pilgrim Health Care</strong> represents <strong>9.1% ($2.3M)</strong> of forecasted revenue but <strong>stopped paying in September 2025</strong>.
-                Total unpaid HPHC across all locations: <strong>$2.3M</strong> with significantly reduced collection rates at MCA (18% vs historical 75% at RRBH). Critical cash flow risk requiring immediate action.
+        <!-- Harvard Pilgrim Spotlight -->
+        <div style="background: linear-gradient(135deg, #fff5f5 0%, #ffe5e5 100%); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(238,9,121,0.2); margin-bottom: 30px; border-left: 5px solid #ee0979;">
+            <h2 style="color: #ee0979; font-size: 1.8em; margin-bottom: 25px; border-bottom: 3px solid #ee0979; padding-bottom: 15px;">⚠️ Harvard Pilgrim Health Care - Detailed Analysis</h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 25px;">
+                <div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="color: #666; font-size: 0.85em; text-transform: uppercase; margin-bottom: 8px;">Total Billed (2025)</div>
+                    <div style="font-size: 1.6em; font-weight: bold; color: #ee0979;">$9.9M</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">6,261 claims</div>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="color: #666; font-size: 0.85em; text-transform: uppercase; margin-bottom: 8px;">Collected</div>
+                    <div style="font-size: 1.6em; font-weight: bold; color: #11998e;">$2.0M</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">1,749 paid claims</div>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="color: #666; font-size: 0.85em; text-transform: uppercase; margin-bottom: 8px;">Unpaid Billed</div>
+                    <div style="font-size: 1.6em; font-weight: bold; color: #ff6b6b;">$6.7M</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">4,512 unpaid claims</div>
+                </div>
+                <div style="background: white; padding: 20px; border-radius: 12px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <div style="color: #666; font-size: 0.85em; text-transform: uppercase; margin-bottom: 8px;">Anticipated Collections</div>
+                    <div style="font-size: 1.6em; font-weight: bold; color: #7f00ff;">$2.3M</div>
+                    <div style="color: #666; font-size: 0.85em; margin-top: 5px;">34.4% expected rate</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #ee0979 0%, #ff6a88 100%); padding: 20px; border-radius: 12px; text-align: center; color: white; box-shadow: 0 4px 12px rgba(238,9,121,0.3);">
+                    <div style="font-size: 0.85em; text-transform: uppercase; margin-bottom: 8px; opacity: 0.9;">Total HPHC Revenue</div>
+                    <div style="font-size: 1.6em; font-weight: bold;">$4.3M</div>
+                    <div style="font-size: 0.85em; margin-top: 5px; opacity: 0.9;">16.9% of total revenue</div>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px;">
+                <h3 style="color: #ee0979; font-size: 1.2em; margin-bottom: 15px;">By Location Breakdown</h3>
+                <table style="width: 100%; border-collapse: collapse;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #eee;">
+                            <th style="padding: 12px; text-align: left; color: #666; font-size: 0.85em;">Location</th>
+                            <th style="padding: 12px; text-align: right; color: #666; font-size: 0.85em;">Total Billed</th>
+                            <th style="padding: 12px; text-align: right; color: #666; font-size: 0.85em;">Collected</th>
+                            <th style="padding: 12px; text-align: right; color: #666; font-size: 0.85em;">Unpaid Billed</th>
+                            <th style="padding: 12px; text-align: right; color: #666; font-size: 0.85em;">Accrual</th>
+                            <th style="padding: 12px; text-align: right; color: #666; font-size: 0.85em;">Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px; font-weight: 600;">MCA</td>
+                            <td style="padding: 12px; text-align: right;">$4,242,189</td>
+                            <td style="padding: 12px; text-align: right; color: #11998e;">$334,242</td>
+                            <td style="padding: 12px; text-align: right; color: #ff6b6b;">$3,901,450</td>
+                            <td style="padding: 12px; text-align: right; color: #7f00ff;">$721,190</td>
+                            <td style="padding: 12px; text-align: right; font-weight: bold; color: #ee0979;">18.5%</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px; font-weight: 600;">RRBH</td>
+                            <td style="padding: 12px; text-align: right;">$2,218,670</td>
+                            <td style="padding: 12px; text-align: right; color: #11998e;">$825,488</td>
+                            <td style="padding: 12px; text-align: right; color: #ff6b6b;">$1,116,690</td>
+                            <td style="padding: 12px; text-align: right; color: #7f00ff;">$830,691</td>
+                            <td style="padding: 12px; text-align: right; font-weight: bold; color: #11998e;">74.4%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 12px; font-weight: 600;">RRTC</td>
+                            <td style="padding: 12px; text-align: right;">$3,458,450</td>
+                            <td style="padding: 12px; text-align: right; color: #11998e;">$814,441</td>
+                            <td style="padding: 12px; text-align: right; color: #ff6b6b;">$1,631,900</td>
+                            <td style="padding: 12px; text-align: right; color: #7f00ff;">$736,206</td>
+                            <td style="padding: 12px; text-align: right; font-weight: bold;">45.1%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: #ffe5e5; padding: 20px; border-radius: 12px; border-left: 4px solid #ee0979;">
+                <h3 style="color: #ee0979; font-size: 1.1em; margin-bottom: 10px;">⚠️ Critical Issue</h3>
+                <div style="color: #333; font-size: 0.95em; line-height: 1.6;">
+                    <strong>Harvard Pilgrim stopped paying in September 2025.</strong> MCA location has significantly reduced collection rates (18.5%) compared to RRBH (74.4%), suggesting in-network rate issues.
+                    Total exposure: <strong>$6.7M unpaid</strong> with only <strong>$2.3M anticipated collections</strong>. Immediate action required on <strong>4,512 unpaid claims</strong>.
+                </div>
             </div>
         </div>
 

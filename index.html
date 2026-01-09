@@ -281,17 +281,17 @@
                 </table>
             </div>
 
-            <!-- Monthly Paid Revenue -->
-            <h3 style="color: #1e3c72; font-size: 1.3em; margin-bottom: 15px; margin-top: 30px;">Monthly Paid Revenue</h3>
+            <!-- Monthly Consolidated Revenue -->
+            <h3 style="color: #1e3c72; font-size: 1.3em; margin-bottom: 15px; margin-top: 30px;">Monthly Consolidated Revenue (Collected + Accrual)</h3>
             <div style="overflow-x: auto;">
                 <table style="width: 100%; border-collapse: collapse;">
                     <thead>
                         <tr style="background: #1e3c72; color: white;">
                             <th style="padding: 15px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Month</th>
-                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">MCA</th>
-                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">RRBH</th>
-                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">RRTC</th>
-                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px; background: #2a5298;">Total</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Collected</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">HPHC Accrual</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px;">Other Accrual</th>
+                            <th style="padding: 15px; text-align: right; font-weight: 600; text-transform: uppercase; font-size: 0.85em; letter-spacing: 1px; background: #2a5298;">Total Revenue</th>
                         </tr>
                     </thead>
                     <tbody id="monthlyTable">
@@ -398,36 +398,56 @@
 
     <script>
         // Monthly Paid Revenue by Location
-        const monthlyByLocation = [
-            {month: "January", MCA: 88909.40, RRBH: 152243.34, RRTC: 233575.65},
-            {month: "February", MCA: 237889.45, RRBH: 335562.21, RRTC: 756800.98},
-            {month: "March", MCA: 258517.09, RRBH: 532093.84, RRTC: 725180.76},
-            {month: "April", MCA: 304328.71, RRBH: 369618.32, RRTC: 1109684.18},
-            {month: "May", MCA: 302746.81, RRBH: 334400.01, RRTC: 1073081.47},
-            {month: "June", MCA: 184074.33, RRBH: 453246.21, RRTC: 1377638.29},
-            {month: "July", MCA: 186826.18, RRBH: 867028.55, RRTC: 1026883.89},
-            {month: "August", MCA: 334036.89, RRBH: 703728.71, RRTC: 849221.21},
-            {month: "September", MCA: 316631.51, RRBH: 596984.49, RRTC: 693147.14},
-            {month: "October", MCA: 279742.87, RRBH: 337538.24, RRTC: 1031037.47},
-            {month: "November", MCA: 323014.51, RRBH: 254688.44, RRTC: 711610.07},
-            {month: "December", MCA: 689214.79, RRBH: 632406.47, RRTC: 850312.00}
+        const monthlyConsolidated = [
+            {month: "January", collected: 474728.39, hphc: 10713.68, other: 226709.44, total: 712151.51},
+            {month: "February", collected: 1330252.64, hphc: 3967.05, other: 102828.70, total: 1437048.39},
+            {month: "March", collected: 1515791.69, hphc: 22465.88, other: 141320.31, total: 1679577.88},
+            {month: "April", collected: 1783631.21, hphc: 34293.30, other: 142545.00, total: 1960469.51},
+            {month: "May", collected: 1710228.29, hphc: 113162.25, other: 120012.63, total: 1943403.17},
+            {month: "June", collected: 2014958.83, hphc: 142193.48, other: 160944.50, total: 2318096.81},
+            {month: "July", collected: 2080738.62, hphc: 124061.92, other: 140945.08, total: 2345745.62},
+            {month: "August", collected: 1886986.81, hphc: 750639.32, other: 98063.58, total: 2735689.71},
+            {month: "September", collected: 1606763.14, hphc: 977671.34, other: 151631.84, total: 2736066.32},
+            {month: "October", collected: 1648318.58, hphc: 1047661.00, other: 324047.66, total: 3020027.24},
+            {month: "November", collected: 1289313.02, hphc: 831859.30, other: 444188.54, total: 2565360.86},
+            {month: "December", collected: 2171933.26, hphc: 520458.72, other: 976391.80, total: 3668783.78}
         ];
 
-        // Populate monthly table
+        // Populate monthly consolidated table
         const monthlyTableBody = document.getElementById('monthlyTable');
-        monthlyByLocation.forEach((data, index) => {
-            const total = data.MCA + data.RRBH + data.RRTC;
+        let sumCollected = 0, sumHPHC = 0, sumOther = 0, sumTotal = 0;
+
+        monthlyConsolidated.forEach((data, index) => {
             const row = document.createElement('tr');
             row.style.background = index % 2 === 0 ? '#ffffff' : '#f8f9fa';
             row.innerHTML = `
                 <td style="padding: 15px; font-weight: 600; color: #1e3c72;">${data.month}</td>
-                <td style="padding: 15px; text-align: right;">$${data.MCA.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
-                <td style="padding: 15px; text-align: right;">$${data.RRBH.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
-                <td style="padding: 15px; text-align: right;">$${data.RRTC.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
-                <td style="padding: 15px; text-align: right; font-weight: bold; background: #f0f4ff;">$${total.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+                <td style="padding: 15px; text-align: right; color: #11998e;">$${data.collected.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+                <td style="padding: 15px; text-align: right; color: #ee0979;">$${data.hphc.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+                <td style="padding: 15px; text-align: right; color: #7f00ff;">$${data.other.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+                <td style="padding: 15px; text-align: right; font-weight: bold; background: #f0f4ff;">$${data.total.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
             `;
             monthlyTableBody.appendChild(row);
+
+            sumCollected += data.collected;
+            sumHPHC += data.hphc;
+            sumOther += data.other;
+            sumTotal += data.total;
         });
+
+        // Add totals footer row
+        const footerRow = document.createElement('tr');
+        footerRow.style.background = '#f8f9fa';
+        footerRow.style.fontWeight = 'bold';
+        footerRow.style.borderTop = '3px solid #1e3c72';
+        footerRow.innerHTML = `
+            <td style="padding: 20px; font-size: 1.1em;">TOTAL</td>
+            <td style="padding: 20px; text-align: right; color: #11998e; font-size: 1.1em;">$${sumCollected.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+            <td style="padding: 20px; text-align: right; color: #ee0979; font-size: 1.1em;">$${sumHPHC.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+            <td style="padding: 20px; text-align: right; color: #7f00ff; font-size: 1.1em;">$${sumOther.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+            <td style="padding: 20px; text-align: right; background: #1e3c72; color: white; font-size: 1.2em;">$${sumTotal.toLocaleString('en-US', {maximumFractionDigits: 0})}</td>
+        `;
+        monthlyTableBody.appendChild(footerRow);
 
         // Data from analysis
         const payerData = [

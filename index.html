@@ -483,6 +483,157 @@
             </div>
         </div>
 
+        <!-- Volume by Payer Section -->
+        <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin-bottom: 30px;">
+            <h2 style="color: #1e3c72; font-size: 1.8em; margin-bottom: 25px; border-bottom: 3px solid #1e3c72; padding-bottom: 15px;">📊 Claim Volume by Payer</h2>
+
+            <div style="background: linear-gradient(135deg, #f0f4ff 0%, #e8f0ff 100%); padding: 20px; border-radius: 12px; margin-bottom: 25px; border-left: 4px solid #2a5298;">
+                <h4 style="color: #1e3c72; font-size: 1.1em; margin-bottom: 10px;">Top 5 Payers by Total Volume</h4>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin-top: 15px;">
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 5px;">Harvard Pilgrim</div>
+                        <div style="font-size: 1.4em; font-weight: bold; color: #ee0979;">6,261</div>
+                        <div style="font-size: 0.8em; color: #666; margin-top: 3px;">claims</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 5px;">BCBS MA</div>
+                        <div style="font-size: 1.4em; font-weight: bold; color: #1e3c72;">5,009</div>
+                        <div style="font-size: 0.8em; color: #666; margin-top: 3px;">claims</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 5px;">United Healthcare</div>
+                        <div style="font-size: 1.4em; font-weight: bold; color: #1e3c72;">4,269</div>
+                        <div style="font-size: 0.8em; color: #666; margin-top: 3px;">claims</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 5px;">MA BCBS</div>
+                        <div style="font-size: 1.4em; font-weight: bold; color: #1e3c72;">3,147</div>
+                        <div style="font-size: 0.8em; color: #666; margin-top: 3px;">claims</div>
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 0.75em; color: #666; text-transform: uppercase; margin-bottom: 5px;">Aetna</div>
+                        <div style="font-size: 1.4em; font-weight: bold; color: #1e3c72;">2,707</div>
+                        <div style="font-size: 0.8em; color: #666; margin-top: 3px;">claims</div>
+                    </div>
+                </div>
+            </div>
+
+            <h3 style="color: #1e3c72; font-size: 1.3em; margin-bottom: 15px; margin-top: 30px;">Monthly Claim Volume - Key Payers</h3>
+            <div style="overflow-x: auto;">
+                <table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+                    <thead>
+                        <tr style="background: #1e3c72; color: white;">
+                            <th style="padding: 12px; text-align: left; font-weight: 600; text-transform: uppercase; font-size: 0.8em; letter-spacing: 0.5px; position: sticky; left: 0; background: #1e3c72; z-index: 10;">Payer</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Jan</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Feb</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Mar</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Apr</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">May</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Jun</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Jul</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Aug</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Sep</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Oct</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Nov</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em;">Dec</th>
+                            <th style="padding: 12px; text-align: center; font-weight: 600; text-transform: uppercase; font-size: 0.8em; background: #2a5298;">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background: #fff5f5;">
+                            <td style="padding: 10px; font-weight: 600; color: #ee0979; position: sticky; left: 0; background: #fff5f5;">Harvard Pilgrim</td>
+                            <td style="padding: 10px; text-align: center;">690</td>
+                            <td style="padding: 10px; text-align: center;">536</td>
+                            <td style="padding: 10px; text-align: center;">662</td>
+                            <td style="padding: 10px; text-align: center;">700</td>
+                            <td style="padding: 10px; text-align: center;">693</td>
+                            <td style="padding: 10px; text-align: center;">615</td>
+                            <td style="padding: 10px; text-align: center;">547</td>
+                            <td style="padding: 10px; text-align: center; background: #ffe5e5; font-weight: 600;">448</td>
+                            <td style="padding: 10px; text-align: center; background: #ffcccc; font-weight: 600;">383</td>
+                            <td style="padding: 10px; text-align: center; background: #ffcccc; font-weight: 600;">435</td>
+                            <td style="padding: 10px; text-align: center; background: #ffcccc; font-weight: 600;">332</td>
+                            <td style="padding: 10px; text-align: center; background: #ffcccc; font-weight: 600;">220</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; background: #f0f4ff;">6,261</td>
+                        </tr>
+                        <tr style="background: #ffffff;">
+                            <td style="padding: 10px; font-weight: 600; color: #1e3c72; position: sticky; left: 0; background: #ffffff;">BCBS MA</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">830</td>
+                            <td style="padding: 10px; text-align: center;">1,006</td>
+                            <td style="padding: 10px; text-align: center;">1,214</td>
+                            <td style="padding: 10px; text-align: center;">1,340</td>
+                            <td style="padding: 10px; text-align: center;">619</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; background: #f0f4ff;">5,009</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; font-weight: 600; color: #1e3c72; position: sticky; left: 0; background: #f8f9fa;">United Healthcare</td>
+                            <td style="padding: 10px; text-align: center;">444</td>
+                            <td style="padding: 10px; text-align: center;">460</td>
+                            <td style="padding: 10px; text-align: center;">440</td>
+                            <td style="padding: 10px; text-align: center;">562</td>
+                            <td style="padding: 10px; text-align: center;">388</td>
+                            <td style="padding: 10px; text-align: center;">326</td>
+                            <td style="padding: 10px; text-align: center;">472</td>
+                            <td style="padding: 10px; text-align: center;">281</td>
+                            <td style="padding: 10px; text-align: center;">282</td>
+                            <td style="padding: 10px; text-align: center;">282</td>
+                            <td style="padding: 10px; text-align: center;">245</td>
+                            <td style="padding: 10px; text-align: center;">87</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; background: #f0f4ff;">4,269</td>
+                        </tr>
+                        <tr style="background: #ffffff;">
+                            <td style="padding: 10px; font-weight: 600; color: #1e3c72; position: sticky; left: 0; background: #ffffff;">MA BCBS</td>
+                            <td style="padding: 10px; text-align: center;">523</td>
+                            <td style="padding: 10px; text-align: center;">498</td>
+                            <td style="padding: 10px; text-align: center;">522</td>
+                            <td style="padding: 10px; text-align: center;">442</td>
+                            <td style="padding: 10px; text-align: center;">448</td>
+                            <td style="padding: 10px; text-align: center;">364</td>
+                            <td style="padding: 10px; text-align: center;">296</td>
+                            <td style="padding: 10px; text-align: center;">54</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center;">-</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; background: #f0f4ff;">3,147</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; font-weight: 600; color: #1e3c72; position: sticky; left: 0; background: #f8f9fa;">Aetna</td>
+                            <td style="padding: 10px; text-align: center;">169</td>
+                            <td style="padding: 10px; text-align: center;">120</td>
+                            <td style="padding: 10px; text-align: center;">76</td>
+                            <td style="padding: 10px; text-align: center;">104</td>
+                            <td style="padding: 10px; text-align: center;">144</td>
+                            <td style="padding: 10px; text-align: center;">236</td>
+                            <td style="padding: 10px; text-align: center;">164</td>
+                            <td style="padding: 10px; text-align: center;">252</td>
+                            <td style="padding: 10px; text-align: center;">322</td>
+                            <td style="padding: 10px; text-align: center;">529</td>
+                            <td style="padding: 10px; text-align: center;">379</td>
+                            <td style="padding: 10px; text-align: center;">212</td>
+                            <td style="padding: 10px; text-align: center; font-weight: bold; background: #f0f4ff;">2,707</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="background: linear-gradient(135deg, #fff9e6 0%, #fff3cc 100%); padding: 20px; border-radius: 12px; border-left: 4px solid #ff9800; margin-top: 25px;">
+                <h4 style="color: #e65100; font-size: 1.1em; margin-bottom: 10px;">📈 Volume Insights</h4>
+                <div style="color: #333; font-size: 0.95em; line-height: 1.6;">
+                    <strong>Payer shifts visible:</strong> BCBS MA only started appearing in August (new contract?), immediately becoming #2 payer with 5,009 claims.
+                    <strong>Harvard Pilgrim decline:</strong> Volume steady Jan-Jul (~600-700/month), then sharp drop Aug-Dec as payments stopped.
+                    <strong>Aetna growth:</strong> Ramped from 169 claims in January to peak of 529 in October.
+                </div>
+            </div>
+        </div>
+
         <div class="charts-grid">
             <div class="chart-card">
                 <h2>PHP vs IOP Revenue</h2>
